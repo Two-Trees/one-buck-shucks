@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import axios from "axios";
 
@@ -6,18 +6,25 @@ const Location = () => {
   const [city, setCity] = useState('');
   const [results, setResults] = useState([]);
 
+  useEffect(() => {
+    // Initial data fetch when the component mounts
+    searchDatabase();
+  }, []);
+  
+  
   const handleLocationChange = (e) => {
     setCity(e.target.value);
     console.log("Onclick value:", e.target.value);
   };
 
   const searchDatabase = async () => {
-    console.log("search string", city)
-    // const query = {};
+    console.log("search string", city);
     try {
-      const response = await axios.post("/api/search-location", city )
+      const response = await axios.get("/api/search-location", {
+        params: { city }, // Send city as a query parameter
+      });
       setResults(response.data);
-      console.log('search results', results);
+      console.log('search results', response.data);
     } catch (error) {
       console.error("Error searching database:", error);
     }
@@ -42,7 +49,7 @@ const Location = () => {
         <option value="Watertown">Watertown</option>
       </select>
       <button onClick={searchDatabase}>Search</button>
-      <div>
+      <div className="card-list">
         {results.map((result, index) => (
           <div key={index}>
             <Card

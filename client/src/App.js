@@ -2,7 +2,7 @@ import React from "react";
 import List from "./components/List";
 // import Input from "./components/Input";
 // import Dropdown from "./components/Dropdown";
-// import Day  from "./components/Day";
+import Day  from "./components/Day";
 import Location from "./components/Location";
 import "./styles/index.css";
 
@@ -17,6 +17,7 @@ function App() {
         </div>
         <div className="drop">
          <Location />
+         <Day />
          </div>
           <List />
         </div>

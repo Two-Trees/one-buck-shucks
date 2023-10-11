@@ -9,11 +9,10 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.MONGO_STRING),
-  {
+mongoose.connect(process.env.MONGO_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-  };
+  });
 
 mongoose.connection.once("open", () => {
   console.log("conneted to mongodb");
@@ -56,37 +55,27 @@ app.get("/api/cards", async (req, res) => {
   }
 });
 
-app.post("/api/search-day", async (req, res) => {
-  const { day } = req.body;
-  const query = {};
-  query[day] = true;
+app.get("/api/search-day", async (req, res) => {
+  const deals = req.query;
+  console.log("deals", deals)
   try {
-    const results = await Card.find({ query });
+    const results = await Card.find({deals});
     res.json(results);
+    console.log(results)
   } catch (error) {
     console.error("Error searching MongoDB:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
-function getString(obj) {
-  const keys = Object.keys(obj);
-  const keyString = keys.toString;
-  console.log(keyString)
-  return keyString;
-}
 
-app.post("/api/search-location", async (req, res) => {
-  const location = req.body;
-  var str = ''
-  const keys = Object.keys(location)
-  str = keys.toString
-
-  console.log("post req", location);
+app.get("/api/search-location", async (req, res) => {
+  const location = req.query.city;
+  console.log(location)
   try {
-    const results = await Card.find({ location });
+    const results = await Card.find({city: location});
     res.json(results);
-    // console.log(results)
+    console.log(results)
   } catch (error) {
     console.error("Error searching MongoDB:", error);
     res.status(500).json({ error: "Internal server error" });
