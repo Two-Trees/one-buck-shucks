@@ -27,13 +27,7 @@ const cardSchema = new mongoose.Schema({
   state: String,
   zip: Number,
   days: String,
-  monday: Boolean,
-  tuesday: Boolean,
-  wednesday: Boolean,
-  thursday: Boolean,
-  friday: Boolean,
-  saturday: Boolean,
-  sunday: Boolean,
+  search: String,
   price: String,
   deals: String,
   altDeals: String,
@@ -56,10 +50,9 @@ app.get("/api/cards", async (req, res) => {
 });
 
 app.get("/api/search-day", async (req, res) => {
-  const deals = req.query;
-  console.log("deals", deals)
+  const search = req.query.search;
   try {
-    const results = await Card.find({deals});
+    const results = await Card.find({ search });
     res.json(results);
     console.log(results)
   } catch (error) {
@@ -67,7 +60,6 @@ app.get("/api/search-day", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-
 
 app.get("/api/search-location", async (req, res) => {
   const location = req.query.city;
@@ -81,6 +73,7 @@ app.get("/api/search-location", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
 
 app.listen(4000, () => {
   console.log("listening on port 4000");
