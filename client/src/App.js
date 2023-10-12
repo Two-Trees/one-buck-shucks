@@ -15,7 +15,7 @@ function App() {
         <div className="shucks">
           <h1>One Buck Shucks</h1>
         </div>
-        <div className="drop">
+        <div className="dropdown">
          <Location />
          <Day />
          </div>
