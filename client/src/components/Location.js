@@ -14,17 +14,17 @@ const Location = () => {
   
   const handleLocationChange = (e) => {
     setCity(e.target.value);
-    console.log("Onclick value:", e.target.value);
+    // console.log("Onclick value:", e.target.value);
   };
 
   const searchDatabase = async () => {
-    console.log("search string", city);
+    // console.log("search string", city);
     try {
       const response = await axios.get("/api/search-location", {
         params: { city }, // Send city as a query parameter
       });
       setResults(response.data);
-      console.log('search results', response.data);
+      // console.log('search results', response.data);
     } catch (error) {
       console.error("Error searching database:", error);
     }

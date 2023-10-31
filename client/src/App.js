@@ -15,10 +15,10 @@ function App() {
         <div className="shucks">
           <h1>One Buck Shucks</h1>
         </div>
-        <div className="dropdown">
+        {/* <div className="dropdown">
          <Location />
          <Day />
-         </div>
+         </div> */}
           <List />
         </div>
       </div>

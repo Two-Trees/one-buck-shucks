@@ -18,14 +18,13 @@ const Day = () => {
     console.log(selectedDay);
   };
 
-
   const searchDatabase = async () => {
     try {
       const response = await axios.get("/api/search-day", {
         params: { search: selectedDay }, // Send day as a query parameter
       });
       setResults(response.data);
-      console.log(results);
+      // console.log(results);
     } catch (error) {
       console.error("Error searching database:", error);
     }

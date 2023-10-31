@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Card = ({ name, website, street, city, state, zip, days, monday, tuesday, wednesday, thursday, friday, saturday, sunday, price, deals, altDeals, altAltDeals }) => {
+const Card = ({ name, website, street, city, state, zip, days, search, price, deals, altDeals, altAltDeals }) => {
   return (
     <div className="card">
       <h2>{name}</h2>

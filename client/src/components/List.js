@@ -9,7 +9,7 @@ const List = () => {
     // Fetch data from your backend server
     const mongoString = process.env.MONGO_STRING;
     axios
-      .get("http://localhost:4000/api/cards", {
+      .get("http://localhost:4000/", {
         headers: {
           Authorization: `Bearer ${mongoString}`,
         },
@@ -18,21 +18,26 @@ const List = () => {
       .catch((error) => console.error("Error:", error));
   }, []);
 
-  // console.log(cardData);
+  console.log(cardData)
 
   return (
     <div className="card-list">
-      {cardData.map((card, index) => (
-        <div key={index}>
-          <Card
-            key={card._id}
-            name={card.name}
-            city={card.city}
-            price={card.price}
-            deals={card.deals}
-            altDeals={card.altDeals}
-            altAltDeals={card.altAltDeals}
-          />
+      {Object.keys(cardData).map((day, index) => (
+        <div key={index} className="day-container">
+          <h1>{day}</h1>
+          <div className="card-list">
+          {cardData[day].map((card, index) => (
+            <Card
+              key={card._id}
+              name={card.name}
+              city={card.city}
+              price={card.price}
+              deals={card.deals}
+              altDeals={card.altDeals}
+              altAltDeals={card.altAltDeals}
+            />
+          ))}
+        </div>
         </div>
       ))}
     </div>

@@ -27,7 +27,7 @@ const cardSchema = new mongoose.Schema({
   state: String,
   zip: Number,
   days: String,
-  search: String,
+  search: [String],
   price: String,
   deals: String,
   altDeals: String,
@@ -40,10 +40,17 @@ const Card = mongoose.model("Card", cardSchema);
 // Middleware to parse JSON in requests
 app.use(express.json());
 
-app.get("/api/cards", async (req, res) => {
+app.get("/", async (req, res) => {
   try {
     const cards = await Card.find({});
-    res.json(cards);
+    const daysOfWeek = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+    const groupedCards = {};
+
+    daysOfWeek.forEach((day) => {
+      groupedCards[day] = cards.filter((card) => card.search.includes(day));
+    });
+    console.log(groupedCards)
+    res.json(groupedCards);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
@@ -54,7 +61,7 @@ app.get("/api/search-day", async (req, res) => {
   try {
     const results = await Card.find({ search });
     res.json(results);
-    console.log(results)
+    // console.log(results)
   } catch (error) {
     console.error("Error searching MongoDB:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -63,11 +70,11 @@ app.get("/api/search-day", async (req, res) => {
 
 app.get("/api/search-location", async (req, res) => {
   const location = req.query.city;
-  console.log(location)
+  // console.log(location)
   try {
     const results = await Card.find({city: location});
     res.json(results);
-    console.log(results)
+    // console.log(results)
   } catch (error) {
     console.error("Error searching MongoDB:", error);
     res.status(500).json({ error: "Internal server error" });
