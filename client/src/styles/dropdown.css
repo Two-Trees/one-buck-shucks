@@ -26,6 +26,7 @@
   
   .dropdown-menu li {
     padding: 8px 16px;
+    font-size: xx-large;
     cursor: pointer;
     transition: background-color 0.3s;
   }

@@ -26,6 +26,14 @@ body {
     align-content: center ;
     font-size: 16px;
     }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background: #333; /* Change the color as needed */
+      margin: 20px 0;
+      display: flex; /* Adjust the margin as needed */
+    }
     
   
   /* input:hover {
@@ -67,15 +75,15 @@ body {
     padding: 16px;
     background-color: rgba(255, 255, 255, .7);
     margin: auto;
-    max-width: 500px;
-    max-height: 150px;
+    max-width: fit-content;
+    max-height: fit-content;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
   }
 
   .card {
-    border: 1px solid #ccc;
+    border: 1px solid #000000;
     border-radius: 4px;
     padding: 16px;
     background-color: rgba(255, 255, 255, .7);
@@ -84,7 +92,7 @@ body {
   }
   
   .card:hover {
-    background-color: rgba(255, 255, 255, .9);
+    background-color: rgba(241, 236, 236, 0.379);
     cursor: pointer;
     -webkit-transition:background-color 1s;
     -moz-transition: background-color 1s;
@@ -93,7 +101,7 @@ body {
   
   .custom-button { /* Blue background color */
     color: black;
-    margin: 5px; /* White text color */
+    margin: 20px; /* White text color */
     padding: 10px 20px; /* Padding for better appearance */
     border-color: black; /* Remove button border */
     cursor: pointer; /* Change cursor on hover */

@@ -69,3 +69,29 @@ const Day = () => {
 };
 
 export default Day;
+
+
+app.get("/api/search-day", async (req, res) => {
+    const search = req.query.search;
+    try {
+      const results = await Card.find({ search });
+      res.json(results);
+      // console.log(results)
+    } catch (error) {
+      console.error("Error searching MongoDB:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  app.get("/api/search-location", async (req, res) => {
+    const location = req.query.city;
+    // console.log(location)
+    try {
+      const results = await Card.find({city: location});
+      res.json(results);
+      // console.log(results)
+    } catch (error) {
+      console.error("Error searching MongoDB:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });

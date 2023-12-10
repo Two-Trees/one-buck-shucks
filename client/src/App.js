@@ -1,29 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import List from "./components/List";
-// import Input from "./components/Input";
-// import Dropdown from "./components/Dropdown";
-import Day  from "./components/Day";
-import Location from "./components/Location";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import City from "./components/City";
+import Page from "./components/Page";
 import "./styles/index.css";
 
-
 function App() {
+  const [card, setCard] = useState(null);
+  const handleCardClick = (card) => {
+    console.log(card);
+    setCard(card);
+  };
+
   return (
-    <div>
-      <div className="container">
-        <div className="App">
-        <div className="shucks">
-          <h1>One Buck Shucks</h1>
-        </div>
-        {/* <div className="dropdown">
-         <Location />
-         <Day />
-         </div> */}
-          <List />
-        </div>
+    <Router>
+      <div>
+        <Routes>
+          <Route path="/location" element={<City />} />
+          <Route
+            path="/"
+            element={<List onCardClick={handleCardClick} />}
+          />
+          {card && (
+            <Route
+              path="/page"
+              element={
+                <Page
+                  id={card.id}
+                  name={card.name}
+                  website={card.website}
+                  street={card.street}
+                  city={card.city}
+                  state={card.state}
+                  zip={card.zip}
+                  days={card.days}
+                  price={card.price}
+                  deals={card.deals}
+                  altDeals={card.altDeals}
+                />
+              }
+            />
+          )}
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 }
 
 export default App;
+
+
+// id, name, website, street, city, state, zip, days, search, price, deals, altDeals, altAltDeals

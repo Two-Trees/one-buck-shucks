@@ -56,31 +56,32 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.get("/api/search-day", async (req, res) => {
-  const search = req.query.search;
+app.get("/location", async (req, res) => {
   try {
-    const results = await Card.find({ search });
-    res.json(results);
-    // console.log(results)
+    const cards = await Card.find({})
+    const locations = ["Arlington","Boston", "Braintree", "Cambridge", "Dorchester", "Newburyport", "Medford", "Somerville", "Watertown"]
+    const groupedCards = {}
+    locations.forEach((city) => {
+      groupedCards[city] = cards.filter((card) => card.city.includes(city))
+    })
+      console.log(groupedCards)
+      res.json(groupedCards);
+    } catch (error) {
+      res.status(500).json({ error: "Location request server error"})
+     }
+})
+
+app.get("/page", async (req, res) => {
+  const page = req.params.name; 
+  try {
+    const results = await Card.find({ page });
+    res.json(results)
+    console.log("results", results)
   } catch (error) {
     console.error("Error searching MongoDB:", error);
     res.status(500).json({ error: "Internal server error" });
   }
-});
-
-app.get("/api/search-location", async (req, res) => {
-  const location = req.query.city;
-  // console.log(location)
-  try {
-    const results = await Card.find({city: location});
-    res.json(results);
-    // console.log(results)
-  } catch (error) {
-    console.error("Error searching MongoDB:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
+})
 
 app.listen(4000, () => {
   console.log("listening on port 4000");

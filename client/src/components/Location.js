@@ -31,7 +31,7 @@ const Location = () => {
   };
 
   return (
-    <div>
+    <div className="card-list">
       <label htmlFor="city"></label>
       <select
         id="city"
@@ -39,7 +39,7 @@ const Location = () => {
         onChange={handleLocationChange}
         value={city}
       >
-        <option value="">Select a Location</option>
+        <option value="">Search By Location</option>
         <option value="Boston">Boston</option>
         <option value="Cambridge">Cambridge</option>
         <option value="Dorchester">Dorchester</option>
